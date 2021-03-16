@@ -45,7 +45,7 @@
     NSError *error = nil;
     _sdk = [VungleSDK sharedSDK];
     _sdk.delegate = self;
-    [VungleSDK enabledBackgroundDownload:YES];
+    [VungleSDK enableBackgroundDownload:YES];
     [_sdk startWithAppId:appId error:&error];
 }
 
@@ -106,7 +106,6 @@
     [_channel invokeMethod:@"onAdPlayable"
                  arguments:@{@"placementId":placementID != nil ? placementID : @"",
                              @"playable": @(isAdPlayable),}];
-    
 }
 
 - (void)vungleWillShowAdForPlacementID:(nullable NSString *)placementID {
@@ -122,9 +121,5 @@
                              @"isCTAClicked": info.didDownload,
                              @"isCompletedView": info.completedView,}];
 }
-
-
-
-
 
 @end
