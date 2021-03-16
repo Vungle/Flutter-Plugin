@@ -45,6 +45,7 @@
     NSError *error = nil;
     _sdk = [VungleSDK sharedSDK];
     _sdk.delegate = self;
+    [VungleSDK enabledBackgroundDownload:YES];
     [_sdk startWithAppId:appId error:&error];
 }
 
