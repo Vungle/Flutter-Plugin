@@ -11,7 +11,7 @@ Please go to the [Vungle](https://www.vungle.com) website to create account for 
 ### Initialize the plugin
 
 ```dart
-if (Platfrom.isAndrod) {
+if (Platfrom.isAndroid) {
   Vungle.init('[vungle_android_app_id]');
 } else {
   //for iOS
