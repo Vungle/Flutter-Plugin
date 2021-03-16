@@ -75,7 +75,8 @@
 }
 
 - (void)callEnableBackgroundDownload:(FlutterMethodCall*)call result:(FlutterResult)result {
-    [VungleSDK enableBackgroundDownload:call.arguments[@"enabled"]];
+    NSNumber *enabled = call.arguments[@"enabled"];
+    [VungleSDK enableBackgroundDownload:enabled.boolValue];
 }
 
 - (NSString *)getAndValidatePlacementId:(FlutterMethodCall*)call result:(FlutterResult)result {
