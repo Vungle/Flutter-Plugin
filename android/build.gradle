@@ -1,0 +1,49 @@
+group 'com.vungle.plugin.flutter.vungle'
+version '1.0-SNAPSHOT'
+
+buildscript {
+    repositories {
+        google()
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.2.1'
+    }
+}
+
+rootProject.allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven {
+            url 'https://jitpack.io'
+        }
+    }
+}
+
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 30
+
+    defaultConfig {
+        minSdkVersion 14
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+    }
+    lintOptions {
+        disable 'InvalidPackage'
+    }
+}
+
+dependencies {  
+  // Vungle SDK
+    implementation 'com.vungle:publisher-sdk-android:6.9.1'
+
+  // Recommended Google Play Services
+  implementation 'com.google.android.gms:play-services-basement:16.2.0'
+
+  // Optional Google Play Services
+  implementation 'com.google.android.gms:play-services-ads-identifier:16.0.0'
+  implementation 'com.google.android.gms:play-services-location:16.0.0'
+}
