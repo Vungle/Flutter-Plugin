@@ -1,8 +1,8 @@
-## 0.6.9-2
+## 0.6.9+2
 
 * Enable background download by default(iOS only)
 
-## 0.6.9-1
+## 0.6.9+1
 
 * Add API to enable / disable background download(iOS only)
 
