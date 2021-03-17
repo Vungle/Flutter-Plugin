@@ -1,6 +1,6 @@
 name: vungle
 description: Vungle plugin for Flutter applications to do monetization.
-version: 0.6.9-2
+version: 0.6.9+2
 homepage: https://github.com/Vungle/Flutter-Plugin/
 
 environment:
