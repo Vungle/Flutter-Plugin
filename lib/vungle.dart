@@ -37,8 +37,8 @@ class Vungle {
 
   /// Initialize the flutter plugin for Vungle SDK.
   ///
-  /// Please go to the http://www.vungle.com to apply a publisher account and register your apps.
-  /// Then You will get an [appId] for each of you apps. You need pass it to plugin when call this method.
+  /// Please go to the http://www.vungle.com to apply for a publisher account and register your apps.
+  /// Then you will get an [appId] for each of your apps. You need to provide the id when calling this method.
   /// Note: If you want to use flutter to develop an app for both iOS and Android, you need register two apps for each platform on vungle dashboard.
   /// And use following code to initialize the plugin:
   /// ```dart
@@ -128,7 +128,7 @@ class Vungle {
 
   /// Check if ad playable by a [placementId]
   ///
-  /// Sometimes, you may not cared about when ad is ready to play, you just cared if there is avaiable ads when you want to show them.
+  /// Sometimes, you may not care when an ad is ready to play, you just care if there is any available ads when you want to show them.
   /// You can use following code to do this:
   /// ```dart
   /// if(await Vungle.isAdPlayable('<placementId>')) {

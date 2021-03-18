@@ -72,7 +72,6 @@ class _MyAppState extends State<MyApp> {
   }
 
   void onInit() {
-    Vungle.enableBackgroundDownload(true);
     Vungle.init(appId);
   }
 
