@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
+import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
@@ -27,9 +28,10 @@ import io.flutter.plugin.common.PluginRegistry.Registrar;
 /** VunglePlugin */
 public class VunglePlugin implements FlutterPlugin, MethodCallHandler {
   private static final String TAG = "VunglePlugin";
+  private static final String channelName = "flutter_vungle";
 
   private Context context;
-  private final MethodChannel channel;
+  private MethodChannel channel;
   private static final Map<String, Vungle.Consent> strToConsentStatus = new HashMap<>();
   private static final Map<Vungle.Consent, String> consentStatusToStr = new HashMap<>();
   static {
@@ -39,22 +41,32 @@ public class VunglePlugin implements FlutterPlugin, MethodCallHandler {
     consentStatusToStr.put(Vungle.Consent.OPTED_OUT, "Denied");
   }
 
-  /** Plugin registration. */
+  /** v1 Plugin registration. */
   public static void registerWith(Registrar registrar) {
-    final MethodChannel channel = new MethodChannel(registrar.messenger(), "flutter_vungle");
+    final MethodChannel channel = new MethodChannel(registrar.messenger(), channelName);
     channel.setMethodCallHandler(new VunglePlugin(registrar.context(), channel));
   }
 
   /** v2 Plugin registration */
+  private static void setup(VunglePlugin plugin, BinaryMessenger binaryMessenger) {
+    plugin.channel = new MethodChannel(binaryMessenger, channelName);
+    plugin.channel.setMethodCallHandler(plugin);
+  }
+
   @Override
   public void onAttachedToEngine(@NonNull FlutterPluginBinding binding) {
     this.context = binding.getApplicationContext();
-    binding.getBinaryMessenger().setMessageHandler(this, );
+    setup(this, binding.getBinaryMessenger());
   }
 
   @Override
   public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
     this.context = null;
+  }
+
+  public VunglePlugin() {
+    // All Android plugin classes must support a no-args 
+    // constructor for v2.
   }
 
   private VunglePlugin(Context context, MethodChannel channel) {
