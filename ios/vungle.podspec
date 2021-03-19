@@ -15,8 +15,10 @@ The Vungle plugin for Flutter applications to enable ad monetization
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
-  s.dependency 'VungleSDK-iOS', '6.9.1'
+  s.dependency 'VungleSDK-iOS'
 
   s.ios.deployment_target = '9.0'
+  
+  s.static_framework = true
 end
 
