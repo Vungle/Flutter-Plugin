@@ -31,7 +31,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   bool sdkInit = false;
   bool adLoaded = false;
-  String sdkVersion;
+  String sdkVersion = "";
 
   String get appId => widget.appId;
   String get placementId => widget.placementId;
