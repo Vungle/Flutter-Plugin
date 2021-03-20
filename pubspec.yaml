@@ -1,5 +1,5 @@
 name: vungle
-description: Vungle plugin for Flutter applications to do monetization.
+description: The Vungle plugin for Flutter applications to enable ad monetization across iOS and Android.
 version: 0.6.9+2
 homepage: https://github.com/Vungle/Flutter-Plugin/
 
