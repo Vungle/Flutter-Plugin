@@ -14,13 +14,13 @@ Please go to the [Vungle](https://www.vungle.com) website to create account for 
 if (Platfrom.isAndroid) {
   Vungle.init('[vungle_android_app_id]');
 } else {
-  //for iOS
+  // for iOS
   Vungle.init('[vungle_ios_app_id]');
 }
 
-//You need wait until the plugin initialized to load and show ads
+// You need wait until the plugin initialized to load and show ads
 Vungle.onInitializeListener = () {
-  //The plugin initialized, can load ads for now
+  // The plugin initialized, can load ads for now
 }
 
 ```
@@ -29,10 +29,10 @@ Vungle.onInitializeListener = () {
 ```dart
 Vungle.loadAd('[vungle_placement_id]');
 
-//To know if the ad loaded
+// To know if the ad loaded
 Vungle.onAdPlayableListener = (placementId, playable) {
   if(playable) {
-    //The ad has been loaded, could play it for now.
+    // The ad has been loaded, could play it for now.
   }
 }
 ```
@@ -44,13 +44,38 @@ if(Vungle.isAdPlayable('[your_placement_id]') {
 }
 
 Vungle.onAdStatedListener = (placementId) {
-  //Ad started to play  
+  // Ad started to play
 }
 
+// Deprecated. Please use OnAdEndListener
 Vungle.onAdFinishedListener = (placementId, isCTAClicked, isCompletedView) {
-  //Ad finished to play
-  //isCTAClicked - User has clicked the `download` button
-  //isCompletedView - User has viewed the video ad completely
+  // Ad finished to play
+  // isCTAClicked - User has clicked the `download` button
+  // isCompletedView - User has viewed the video ad completely
   
 }
+
+Vungle.OnAdEndListener = (placementId) {
+  // If implemented, this method gets called when a Vungle Ad Unit has been completely dismissed.
+}
+
+Vungle.OnAdViewedListener = (placementId) {
+  // If implemented, this will be called when the ad is first rendered for the specified placement.
+}
+
+Vungle.OnAdClickedListener = (placementId) {
+  // If implemented, this method gets called when user clicks the Vungle Ad.
+}
+
+Vungle.OnAdRewardedListener = (placementId) {
+  // This method is called when the user should be rewarded for watching a Rewarded Video Ad.
+  // At this point, it's recommended to reward the user.
+}
+
+Vungle.OnAdLeftApplicationListener = (placementId) {
+  // If implemented, this method gets called when user taps the Vungle Ad
+  // which will cause them to leave the current application(e.g. the ad action
+  // opens the iTunes store, Mobile Safari, etc).
+}
+
 ```

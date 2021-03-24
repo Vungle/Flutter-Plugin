@@ -16,8 +16,19 @@ typedef void OnAdPlayableListener(String placementId, bool playable);
 
 typedef void OnAdStartedListener(String placementId);
 
+// Deprecated
 typedef void OnAdFinishedListener(
     String placementId, bool isCTAClicked, bool isCompletedView);
+
+typedef void OnAdEndListener(String placementId);
+
+typedef void OnAdClickedListener(String placementId);
+
+typedef void OnAdViewedListener(String placementId);
+
+typedef void OnAdRewardedListener(String placementId);
+
+typedef void OnAdLeftApplicationListener(String placementId);
 
 class Vungle {
   static const MethodChannel _channel = const MethodChannel('flutter_vungle');
@@ -28,7 +39,18 @@ class Vungle {
 
   static OnAdStartedListener onAdStartedListener;
 
+  // Deprecated
   static OnAdFinishedListener onAdFinishedListener;
+
+  static OnAdEndListener onAdEndListener;
+
+  static OnAdClickedListener onAdClickedListener;
+
+  static OnAdViewedListener onAdViewedListener;
+
+  static OnAdRewardedListener onAdRewardedListener;
+
+  static OnAdLeftApplicationListener onAdLeftApplicationListener;
 
   /// Get version of Vungle native SDK
   static Future<String> getSDKVersion() async {
@@ -198,6 +220,16 @@ class Vungle {
         final bool isCTAClicked = arguments['isCTAClicked'];
         final bool isCompletedView = arguments['isCompletedView'];
         onAdFinishedListener(placementId, isCTAClicked, isCompletedView);
+      } else if (method == 'onAdEnd') {
+        onAdEndListener(placementId);
+      } else if (method == 'onAdClicked') {
+        onAdClickedListener(placementId);
+      } else if (method == 'onAdViewed') {
+        onAdViewedListener(placementId);
+      } else if (method == 'onAdRewarded') {
+        onAdRewardedListener(placementId);
+      } else if (method == 'onAdLeftApplication') {
+        onAdLeftApplicationListener(placementId);
       } else {
         throw new MissingPluginException("Method not implemented, $method");
       }

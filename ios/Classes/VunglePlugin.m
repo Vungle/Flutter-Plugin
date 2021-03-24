@@ -122,4 +122,34 @@
                              @"isCompletedView": info.completedView,}];
 }
 
+- (void)vungleDidCloseAdForPlacementID:(nonnull NSString *)placementID {
+    NSLog(@"vungleDidCloseAdForPlacementID:%@", placementID);
+    [_channel invokeMethod:@"onAdEnd"
+                 arguments:@{@"placementId":placementID != nil ? placementID : @""}];
+}
+
+- (void)vungleTrackClickForPlacementID:(nullable NSString *)placementID {
+    NSLog(@"vungleTrackClickForPlacementID:%@", placementID);
+    [_channel invokeMethod:@"onAdClicked"
+                 arguments:@{@"placementId":placementID != nil ? placementID : @""}];
+}
+
+- (void)vungleAdViewedForPlacement:(nonnull NSString *)placementID {
+    NSLog(@"vungleAdViewedForPlacement:%@", placementID);
+    [_channel invokeMethod:@"onAdViewed"
+                 arguments:@{@"placementId":placementID != nil ? placementID : @""}];
+}
+
+- (void)vungleRewardUserForPlacementID:(nullable NSString *)placementID {
+    NSLog(@"vungleRewardUserForPlacementID:%@", placementID);
+    [_channel invokeMethod:@"onAdRewarded"
+                 arguments:@{@"placementId":placementID != nil ? placementID : @""}];
+}
+
+- (void)vungleWillLeaveApplicationForPlacementID:(nullable NSString *)placementID {
+    NSLog(@"vungleWillLeaveApplicationForPlacementID:%@", placementID);
+    [_channel invokeMethod:@"onAdLeftApplication"
+                 arguments:@{@"placementId":placementID != nil ? placementID : @""}];
+}
+
 @end

@@ -173,27 +173,32 @@ public class VunglePlugin implements FlutterPlugin, MethodCallHandler {
 
       @Override
       public void onAdEnd(String id) {
-
+        Log.d(TAG, "Vungle ad end, " + id);
+        channel.invokeMethod("onAdEnd", argumentsMap("placementId", id));
       }
 
       @Override
       public void onAdClick(String id) {
-
+        Log.d(TAG, "Vungle ad clicked, " + id);
+        channel.invokeMethod("onAdClicked", argumentsMap("placementId", id));
       }
 
       @Override
       public void onAdRewarded(String id) {
-
+        Log.d(TAG, "Vungle ad rewarded, " + id);
+        channel.invokeMethod("onAdRewarded", argumentsMap("placementId", id));
       }
 
       @Override
       public void onAdLeftApplication(String id) {
-
+        Log.d(TAG, "Vungle ad left application, " + id);
+        channel.invokeMethod("onAdLeftApplication", argumentsMap("placementId", id));
       }
 
       @Override
       public void onAdViewed(String id) {
-
+        Log.d(TAG, "Vungle ad viewed, " + id);
+        channel.invokeMethod("onAdViewed", argumentsMap("placementId", id));
       }
     });
     result.success(Boolean.TRUE);
