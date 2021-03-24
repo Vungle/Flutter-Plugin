@@ -1,3 +1,7 @@
+## 0.6.9+4
+
+* Ad play callback update.
+
 ## 0.6.9+3
 
 * Bug fix for android and iOS settings.
