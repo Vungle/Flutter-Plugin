@@ -3,7 +3,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'vungle'
-  s.version          = '6.9.1'
+  s.version          = '6.9.2'
   s.summary          = 'Vungle plugin for Flutter apps'
   s.description      = <<-DESC
 The Vungle plugin for Flutter applications to enable ad monetization
@@ -15,7 +15,7 @@ The Vungle plugin for Flutter applications to enable ad monetization
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
-  s.dependency 'VungleSDK-iOS', '> 6.9.2'
+  s.dependency 'VungleSDK-iOS', '~> 6.9.2'
 
   s.ios.deployment_target = '9.0'
   
