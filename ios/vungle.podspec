@@ -3,20 +3,22 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'vungle'
-  s.version          = '0.0.1'
-  s.summary          = 'A new flutter plugin project.'
+  s.version          = '6.9.1'
+  s.summary          = 'Vungle plugin for Flutter apps'
   s.description      = <<-DESC
-A new flutter plugin project.
+The Vungle plugin for Flutter applications to enable ad monetization
                        DESC
-  s.homepage         = 'http://example.com'
+  s.homepage         = "https://www.vungle.com/"
   s.license          = { :file => '../LICENSE' }
-  s.author           = { 'Your Company' => 'email@example.com' }
+  s.author           = { "Vungle" => "tech-support@vungle.com" }
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
-  s.dependency 'VungleSDK-iOS', '6.9.1'
+  s.dependency 'VungleSDK-iOS'
 
   s.ios.deployment_target = '9.0'
+  
+  s.static_framework = true
 end
 

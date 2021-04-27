@@ -31,7 +31,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   bool sdkInit = false;
   bool adLoaded = false;
-  String sdkVersion;
+  String sdkVersion = "";
 
   String get appId => widget.appId;
   String get placementId => widget.placementId;
@@ -72,7 +72,6 @@ class _MyAppState extends State<MyApp> {
   }
 
   void onInit() {
-    Vungle.enableBackgroundDownload(true);
     Vungle.init(appId);
   }
 

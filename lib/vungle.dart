@@ -16,8 +16,19 @@ typedef void OnAdPlayableListener(String placementId, bool playable);
 
 typedef void OnAdStartedListener(String placementId);
 
+// Deprecated
 typedef void OnAdFinishedListener(
     String placementId, bool isCTAClicked, bool isCompletedView);
+
+typedef void OnAdEndListener(String placementId);
+
+typedef void OnAdClickedListener(String placementId);
+
+typedef void OnAdViewedListener(String placementId);
+
+typedef void OnAdRewardedListener(String placementId);
+
+typedef void OnAdLeftApplicationListener(String placementId);
 
 class Vungle {
   static const MethodChannel _channel = const MethodChannel('flutter_vungle');
@@ -28,7 +39,18 @@ class Vungle {
 
   static OnAdStartedListener onAdStartedListener;
 
+  // Deprecated
   static OnAdFinishedListener onAdFinishedListener;
+
+  static OnAdEndListener onAdEndListener;
+
+  static OnAdClickedListener onAdClickedListener;
+
+  static OnAdViewedListener onAdViewedListener;
+
+  static OnAdRewardedListener onAdRewardedListener;
+
+  static OnAdLeftApplicationListener onAdLeftApplicationListener;
 
   /// Get version of Vungle native SDK
   static Future<String> getSDKVersion() async {
@@ -37,8 +59,8 @@ class Vungle {
 
   /// Initialize the flutter plugin for Vungle SDK.
   ///
-  /// Please go to the http://www.vungle.com to apply a publisher account and register your apps.
-  /// Then You will get an [appId] for each of you apps. You need pass it to plugin when call this method.
+  /// Please go to the http://www.vungle.com to apply for a publisher account and register your apps.
+  /// Then you will get an [appId] for each of your apps. You need to provide the id when calling this method.
   /// Note: If you want to use flutter to develop an app for both iOS and Android, you need register two apps for each platform on vungle dashboard.
   /// And use following code to initialize the plugin:
   /// ```dart
@@ -128,7 +150,7 @@ class Vungle {
 
   /// Check if ad playable by a [placementId]
   ///
-  /// Sometimes, you may not cared about when ad is ready to play, you just cared if there is avaiable ads when you want to show them.
+  /// Sometimes, you may not care when an ad is ready to play, you just care if there is any available ads when you want to show them.
   /// You can use following code to do this:
   /// ```dart
   /// if(await Vungle.isAdPlayable('<placementId>')) {
@@ -198,6 +220,16 @@ class Vungle {
         final bool isCTAClicked = arguments['isCTAClicked'];
         final bool isCompletedView = arguments['isCompletedView'];
         onAdFinishedListener(placementId, isCTAClicked, isCompletedView);
+      } else if (method == 'onAdEnd') {
+        onAdEndListener(placementId);
+      } else if (method == 'onAdClicked') {
+        onAdClickedListener(placementId);
+      } else if (method == 'onAdViewed') {
+        onAdViewedListener(placementId);
+      } else if (method == 'onAdRewarded') {
+        onAdRewardedListener(placementId);
+      } else if (method == 'onAdLeftApplication') {
+        onAdLeftApplicationListener(placementId);
       } else {
         throw new MissingPluginException("Method not implemented, $method");
       }

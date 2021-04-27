@@ -1,9 +1,13 @@
 package com.vungle.plugin.flutter.vungle;
 
+import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.vungle.warren.AdConfig;
+import com.vungle.warren.BuildConfig;
 import com.vungle.warren.InitCallback;
 import com.vungle.warren.LoadAdCallback;
 import com.vungle.warren.PlayAdCallback;
@@ -13,6 +17,8 @@ import com.vungle.warren.error.VungleException;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.flutter.embedding.engine.plugins.FlutterPlugin;
+import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
@@ -20,15 +26,12 @@ import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
 
 /** VunglePlugin */
-public class VunglePlugin implements MethodCallHandler {
-
+public class VunglePlugin implements FlutterPlugin, MethodCallHandler {
   private static final String TAG = "VunglePlugin";
-  //here not way to get the SDK version through SDK's API, so hard coded the version.
-  //need to make it matched to the version in the build.gradle
-  private static final String SDK_VERSION = "6.9.1";
+  private static final String channelName = "flutter_vungle";
 
-  private final Registrar registrar;
-  private final MethodChannel channel;
+  private Context context;
+  private MethodChannel channel;
   private static final Map<String, Vungle.Consent> strToConsentStatus = new HashMap<>();
   private static final Map<Vungle.Consent, String> consentStatusToStr = new HashMap<>();
   static {
@@ -38,19 +41,39 @@ public class VunglePlugin implements MethodCallHandler {
     consentStatusToStr.put(Vungle.Consent.OPTED_OUT, "Denied");
   }
 
-
-  /** Plugin registration. */
+  /** v1 Plugin registration. */
   public static void registerWith(Registrar registrar) {
-    final MethodChannel channel = new MethodChannel(registrar.messenger(), "flutter_vungle");
-    channel.setMethodCallHandler(new VunglePlugin(registrar, channel));
+    final MethodChannel channel = new MethodChannel(registrar.messenger(), channelName);
+    channel.setMethodCallHandler(new VunglePlugin(registrar.context(), channel));
   }
 
-  private VunglePlugin(Registrar registrar, MethodChannel channel) {
-    this.registrar = registrar;
-    this.channel = channel;
+  /** v2 Plugin registration */
+  private static void setup(VunglePlugin plugin, BinaryMessenger binaryMessenger) {
+    plugin.channel = new MethodChannel(binaryMessenger, channelName);
+    plugin.channel.setMethodCallHandler(plugin);
   }
 
   @Override
+  public void onAttachedToEngine(@NonNull FlutterPluginBinding binding) {
+    this.context = binding.getApplicationContext();
+    setup(this, binding.getBinaryMessenger());
+  }
+
+  @Override
+  public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
+    this.context = null;
+  }
+
+  public VunglePlugin() {
+    // All Android plugin classes must support a no-args 
+    // constructor for v2.
+  }
+
+  private VunglePlugin(Context context, MethodChannel channel) {
+    this.context = context;
+    this.channel = channel;
+  }
+
   public void onMethodCall(MethodCall call, Result result) {
     if (call.method.equals("getPlatformVersion")) {
       result.success("Android " + android.os.Build.VERSION.RELEASE);
@@ -65,7 +88,7 @@ public class VunglePlugin implements MethodCallHandler {
     } else if(call.method.equals("updateConsentStatus")) {
       callUpdateConsentStatus(call, result);
     } else if (call.method.equals("sdkVersion")) {
-      result.success(SDK_VERSION);
+      result.success(BuildConfig.VERSION_NAME);
     } else if (call.method.equals("enableBackgroundDownload")) {
       // no op for this method.
     } else {
@@ -80,7 +103,7 @@ public class VunglePlugin implements MethodCallHandler {
       result.error("no_app_id", "a null or empty Vungle appId was provided", null);
       return;
     }
-    Vungle.init(appId, registrar.context(), new InitCallback() {
+    Vungle.init(appId, this.context, new InitCallback() {
       @Override
       public void onSuccess() {
         Log.d(TAG, "Vungle SDK init success");
@@ -150,27 +173,32 @@ public class VunglePlugin implements MethodCallHandler {
 
       @Override
       public void onAdEnd(String id) {
-
+        Log.d(TAG, "Vungle ad end, " + id);
+        channel.invokeMethod("onAdEnd", argumentsMap("placementId", id));
       }
 
       @Override
       public void onAdClick(String id) {
-
+        Log.d(TAG, "Vungle ad clicked, " + id);
+        channel.invokeMethod("onAdClicked", argumentsMap("placementId", id));
       }
 
       @Override
       public void onAdRewarded(String id) {
-
+        Log.d(TAG, "Vungle ad rewarded, " + id);
+        channel.invokeMethod("onAdRewarded", argumentsMap("placementId", id));
       }
 
       @Override
       public void onAdLeftApplication(String id) {
-
+        Log.d(TAG, "Vungle ad left application, " + id);
+        channel.invokeMethod("onAdLeftApplication", argumentsMap("placementId", id));
       }
 
       @Override
       public void onAdViewed(String id) {
-
+        Log.d(TAG, "Vungle ad viewed, " + id);
+        channel.invokeMethod("onAdViewed", argumentsMap("placementId", id));
       }
     });
     result.success(Boolean.TRUE);
