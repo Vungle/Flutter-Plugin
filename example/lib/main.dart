@@ -51,7 +51,7 @@ class _MyAppState extends State<MyApp> {
     };
 
     Vungle.onAdPlayableListener = (placementId, playable) {
-      if (playable != null && playable) {
+      if (playable) {
         setState(() {
           adLoaded = true;
         });

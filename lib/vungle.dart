@@ -12,23 +12,23 @@ enum UserConsentStatus {
 
 typedef void OnInitilizeListener();
 
-typedef void OnAdPlayableListener(String? placementId, bool? playable);
+typedef void OnAdPlayableListener(String placementId, bool playable);
 
-typedef void OnAdStartedListener(String? placementId);
+typedef void OnAdStartedListener(String placementId);
 
 // Deprecated
 typedef void OnAdFinishedListener(
-    String? placementId, bool? isCTAClicked, bool? isCompletedView);
+    String placementId, bool isCTAClicked, bool isCompletedView);
 
-typedef void OnAdEndListener(String? placementId);
+typedef void OnAdEndListener(String placementId);
 
-typedef void OnAdClickedListener(String? placementId);
+typedef void OnAdClickedListener(String placementId);
 
-typedef void OnAdViewedListener(String? placementId);
+typedef void OnAdViewedListener(String placementId);
 
-typedef void OnAdRewardedListener(String? placementId);
+typedef void OnAdRewardedListener(String placementId);
 
-typedef void OnAdLeftApplicationListener(String? placementId);
+typedef void OnAdLeftApplicationListener(String placementId);
 
 class Vungle {
   static const MethodChannel _channel = const MethodChannel('flutter_vungle');
@@ -213,9 +213,9 @@ class Vungle {
         onInitilizeListener!();
       }
     } else {
-      final String? placementId = arguments!['placementId'];
+      final String placementId = arguments!['placementId'] ?? "";
       if (method == 'onAdPlayable') {
-        final bool? playable = arguments['playable'];
+        final bool playable = arguments['playable'] ?? false;
         if (onAdPlayableListener != null) {
           onAdPlayableListener!(placementId, playable);
         }
@@ -224,8 +224,8 @@ class Vungle {
           onAdStartedListener!(placementId);
         }
       } else if (method == 'onAdFinished') {
-        final bool? isCTAClicked = arguments['isCTAClicked'];
-        final bool? isCompletedView = arguments['isCompletedView'];
+        final bool isCTAClicked = arguments['isCTAClicked'] ?? false;
+        final bool isCompletedView = arguments['isCompletedView'] ?? false;
         onAdFinishedListener(placementId, isCTAClicked, isCompletedView);
       } else if (method == 'onAdEnd') {
         onAdEndListener(placementId);
