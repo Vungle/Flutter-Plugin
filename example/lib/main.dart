@@ -41,7 +41,7 @@ class _MyAppState extends State<MyApp> {
     super.initState();
 
     Vungle.getSDKVersion().then((value) => setState(() {
-          sdkVersion = value ?? "";
+          sdkVersion = value;
         }));
 
     Vungle.onInitilizeListener = () {
@@ -80,7 +80,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   void onPlayAd() async {
-    if (await Vungle.isAdPlayable(placementId) ?? false) {
+    if (await Vungle.isAdPlayable(placementId)) {
       Vungle.playAd(placementId);
     } else {
       print('The ad is not ready to play');
