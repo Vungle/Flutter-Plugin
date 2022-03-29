@@ -38,7 +38,7 @@ android {
 
 dependencies {  
   // Vungle SDK
-  implementation 'com.vungle:publisher-sdk-android:6.9.1'
+  implementation 'com.vungle:publisher-sdk-android:6.10.5'
 
   // Recommended Google Play Services
   implementation 'com.google.android.gms:play-services-basement:16.2.0'

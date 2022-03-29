@@ -200,6 +200,11 @@ public class VunglePlugin implements FlutterPlugin, MethodCallHandler {
         Log.d(TAG, "Vungle ad viewed, " + id);
         channel.invokeMethod("onAdViewed", argumentsMap("placementId", id));
       }
+
+      @Override
+      public void creativeId(String id) {
+        Log.d(TAG, "Vungle creative id, " + id);
+      }
     });
     result.success(Boolean.TRUE);
   }
