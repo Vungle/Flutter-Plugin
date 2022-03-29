@@ -16,8 +16,4 @@ void main() {
   tearDown(() {
     channel.setMockMethodCallHandler(null);
   });
-
-  test('getContentStatus', () async {
-    expect(await Vungle.getConsentStatus(), UserConsentStatus.Accepted);
-  });
 }
