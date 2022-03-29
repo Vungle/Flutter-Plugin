@@ -12,48 +12,48 @@ enum UserConsentStatus {
 
 typedef void OnInitilizeListener();
 
-typedef void OnAdPlayableListener(String placementId, bool playable);
+typedef void OnAdPlayableListener(String? placementId, bool? playable);
 
-typedef void OnAdStartedListener(String placementId);
+typedef void OnAdStartedListener(String? placementId);
 
 // Deprecated
 typedef void OnAdFinishedListener(
-    String placementId, bool isCTAClicked, bool isCompletedView);
+    String? placementId, bool? isCTAClicked, bool? isCompletedView);
 
-typedef void OnAdEndListener(String placementId);
+typedef void OnAdEndListener(String? placementId);
 
-typedef void OnAdClickedListener(String placementId);
+typedef void OnAdClickedListener(String? placementId);
 
-typedef void OnAdViewedListener(String placementId);
+typedef void OnAdViewedListener(String? placementId);
 
-typedef void OnAdRewardedListener(String placementId);
+typedef void OnAdRewardedListener(String? placementId);
 
-typedef void OnAdLeftApplicationListener(String placementId);
+typedef void OnAdLeftApplicationListener(String? placementId);
 
 class Vungle {
   static const MethodChannel _channel = const MethodChannel('flutter_vungle');
 
-  static OnInitilizeListener onInitilizeListener;
+  static OnInitilizeListener? onInitilizeListener;
 
-  static OnAdPlayableListener onAdPlayableListener;
+  static OnAdPlayableListener? onAdPlayableListener;
 
-  static OnAdStartedListener onAdStartedListener;
+  static OnAdStartedListener? onAdStartedListener;
 
   // Deprecated
-  static OnAdFinishedListener onAdFinishedListener;
+  static late OnAdFinishedListener onAdFinishedListener;
 
-  static OnAdEndListener onAdEndListener;
+  static late OnAdEndListener onAdEndListener;
 
-  static OnAdClickedListener onAdClickedListener;
+  static late OnAdClickedListener onAdClickedListener;
 
-  static OnAdViewedListener onAdViewedListener;
+  static late OnAdViewedListener onAdViewedListener;
 
-  static OnAdRewardedListener onAdRewardedListener;
+  static late OnAdRewardedListener onAdRewardedListener;
 
-  static OnAdLeftApplicationListener onAdLeftApplicationListener;
+  static late OnAdLeftApplicationListener onAdLeftApplicationListener;
 
   /// Get version of Vungle native SDK
-  static Future<String> getSDKVersion() async {
+  static Future<String?> getSDKVersion() async {
     return _channel.invokeMethod('sdkVersion');
   }
 
@@ -157,8 +157,8 @@ class Vungle {
   ///   Vungle.playAd('<placementId>');
   /// }
   /// ```
-  static Future<bool> isAdPlayable(String placementId) async {
-    final bool isAdAvailable =
+  static Future<bool?> isAdPlayable(String placementId) async {
+    final bool? isAdAvailable =
         await _channel.invokeMethod('isAdPlayable', <String, dynamic>{
       'placementId': placementId,
     });
@@ -178,14 +178,14 @@ class Vungle {
   }
 
   /// Get Consent Status
-  static Future<UserConsentStatus> getConsentStatus() async {
-    final String status = await _channel.invokeMethod('getConsentStatus', null);
-    return _statusStringToUserConsentStatus[status];
+  static Future<UserConsentStatus?> getConsentStatus() async {
+    final String? status = await _channel.invokeMethod('getConsentStatus', null);
+    return _statusStringToUserConsentStatus[status!];
   }
 
   /// Get Consent Message version
-  static Future<String> getConsentMessageVersion() async {
-    final String version =
+  static Future<String?> getConsentMessageVersion() async {
+    final String? version =
         await _channel.invokeMethod('getConsentMessageVersion', null);
     return version;
   }
@@ -198,27 +198,27 @@ class Vungle {
 
   static Future<dynamic> _handleMethod(MethodCall call) {
     print('_handleMethod: ${call.method}, ${call.arguments}');
-    final Map<dynamic, dynamic> arguments = call.arguments;
+    final Map<dynamic, dynamic>? arguments = call.arguments;
     final String method = call.method;
 
     if (method == 'onInitialize') {
       if (onInitilizeListener != null) {
-        onInitilizeListener();
+        onInitilizeListener!();
       }
     } else {
-      final String placementId = arguments['placementId'];
+      final String? placementId = arguments!['placementId'];
       if (method == 'onAdPlayable') {
-        final bool playable = arguments['playable'];
+        final bool? playable = arguments['playable'];
         if (onAdPlayableListener != null) {
-          onAdPlayableListener(placementId, playable);
+          onAdPlayableListener!(placementId, playable);
         }
       } else if (method == 'onAdStarted') {
         if (onAdStartedListener != null) {
-          onAdStartedListener(placementId);
+          onAdStartedListener!(placementId);
         }
       } else if (method == 'onAdFinished') {
-        final bool isCTAClicked = arguments['isCTAClicked'];
-        final bool isCompletedView = arguments['isCompletedView'];
+        final bool? isCTAClicked = arguments['isCTAClicked'];
+        final bool? isCompletedView = arguments['isCompletedView'];
         onAdFinishedListener(placementId, isCTAClicked, isCompletedView);
       } else if (method == 'onAdEnd') {
         onAdEndListener(placementId);
