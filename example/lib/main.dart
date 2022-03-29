@@ -31,7 +31,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   bool sdkInit = false;
   bool adLoaded = false;
-  String? sdkVersion = "";
+  String sdkVersion = "";
 
   String get appId => widget.appId;
   String get placementId => widget.placementId;
@@ -51,7 +51,7 @@ class _MyAppState extends State<MyApp> {
     };
 
     Vungle.onAdPlayableListener = (placemenId, playable) {
-      if (playable!) {
+      if (playable) {
         setState(() {
           adLoaded = true;
         });
@@ -80,7 +80,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   void onPlayAd() async {
-    if (await (Vungle.isAdPlayable(placementId) as FutureOr<bool>)) {
+    if (await Vungle.isAdPlayable(placementId)) {
       Vungle.playAd(placementId);
     } else {
       print('The ad is not ready to play');
