@@ -1,3 +1,8 @@
+## 0.6.10
+
+* Support Vungle SDK 6.10.x
+* Add null safety support
+
 ## 0.6.9+4
 
 * Ad play callback update.
