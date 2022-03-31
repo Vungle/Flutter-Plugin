@@ -43,7 +43,7 @@ if(Vungle.isAdPlayable('[your_placement_id]') {
   Vungle.playAd(placementId);
 }
 
-Vungle.onAdStatedListener = (placementId) {
+Vungle.onAdStartedListener = (placementId) {
   // Ad started to play
 }
 

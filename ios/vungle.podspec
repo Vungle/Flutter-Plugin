@@ -3,7 +3,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'vungle'
-  s.version          = '6.9.1'
+  s.version          = '6.10.6'
   s.summary          = 'Vungle plugin for Flutter apps'
   s.description      = <<-DESC
 The Vungle plugin for Flutter applications to enable ad monetization

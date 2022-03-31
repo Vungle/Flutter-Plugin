@@ -50,7 +50,7 @@ class _MyAppState extends State<MyApp> {
       });
     };
 
-    Vungle.onAdPlayableListener = (placemenId, playable) {
+    Vungle.onAdPlayableListener = (placementId, playable) {
       if (playable) {
         setState(() {
           adLoaded = true;
@@ -118,7 +118,7 @@ class _MyAppState extends State<MyApp> {
               SizedBox(
                 height: 20,
               ),
-              Text('SDK Version: ${sdkVersion ?? ''}'),
+              Text('SDK Version: $sdkVersion'),
             ],
           ),
         ),
