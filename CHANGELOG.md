@@ -1,3 +1,7 @@
+## 0.6.12
+
+* Support Vungle SDK 6.12.x
+
 ## 0.6.10
 
 * Support Vungle SDK 6.10.x
