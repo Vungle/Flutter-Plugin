@@ -173,19 +173,21 @@ class Vungle {
   static void updateConsentStatus(
       UserConsentStatus status, String consentMessageVersion) {
     _channel.invokeMethod('updateConsentStatus', <String, dynamic>{
-      'consentStatus': status.toString(),
+      'consentStatus': status.name,
       'consentMessageVersion': consentMessageVersion,
     });
   }
 
   /// Get Consent Status
   static Future<UserConsentStatus> getConsentStatus() async {
-    final String? status = await _channel.invokeMethod('getConsentStatus', null);
+    final String? status =
+        await _channel.invokeMethod('getConsentStatus', null);
     if (status == null) {
       return UserConsentStatus.Denied;
     }
     if (_statusStringToUserConsentStatus.containsKey(status)) {
-      return _statusStringToUserConsentStatus[status] ?? UserConsentStatus.Denied;
+      return _statusStringToUserConsentStatus[status] ??
+          UserConsentStatus.Denied;
     }
     return UserConsentStatus.Denied;
   }
