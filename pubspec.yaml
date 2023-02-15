@@ -1,6 +1,6 @@
 name: vungle
 description: The Vungle plugin for Flutter applications to enable ad monetization across iOS and Android.
-version: 0.7.0
+version: 0.6.12
 homepage: https://github.com/Vungle/Flutter-Plugin/
 
 environment:
